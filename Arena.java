@@ -4,8 +4,9 @@ import java.util.*;
 /**
  * SerÃ¡ a "Interface" de comunicacao cm os comandos do usuario, como exibir mapa e as unidades, possibilitar movimentacao, excluir ou adicionar unidades.
  */
-public class Arena {
+public class Arena implements AldeaoSet {
 
+	private Auxiliar auxiliar = new Auxiliar();
 
     /**
      * 
@@ -81,14 +82,10 @@ public class Arena {
      * @param direcao Direcao de ser do Tipo: 'S' -> Sul ... 'N' -> Norte ... 'L' -> Leste ... 'O' -> Oeste.
      */
     public void MovimentarUnidade(int id, String direcao) {
-    	Aldeao unit = this.ExisteUnidade(id);
-       if(unit != null) {
-    	   unit.Movimenta(direcao);
-       }
-       else {
-    	   System.out.println("Esta unidade Não existe!");
-       }
-    	   
+    	auxiliar.Movimenta(id, direcao, this.unidades, this.mapa);
+    	this.unidades = auxiliar.getUnidade();
+    	this.mapa = auxiliar.getMapa();
+    	this.PrintMapa();
     }
     
     /** 
@@ -162,16 +159,20 @@ public class Arena {
     	}
     }
     
-    /**
-     * Retorna a Unidade se Existir
-     */
-    private Aldeao ExisteUnidade(int id) {
-    	int i;
-    	for(i = 0; i < unidades.length; i++) {
-    		if(unidades[i].getId() == id) {
-    			return unidades[i];
-    		}
-    	}
-		return null;
-    }
+
+	@Override
+	public void Movimenta(String direcao, Aldeao[] Vetor, String[][] Mapa) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void Atacar(boolean ataque) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+		
+	
 }

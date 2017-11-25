@@ -11,7 +11,7 @@ public interface AldeaoSet {
      * @param SetX Posicao X
      * @param SetY Posicao Y
      */
-    public void Movimenta(String direcao);
+    public void Movimenta(String direcao, Aldeao[] Vetor, String[][] Mapa);
 
     /**
      * Esse metodo serve para desferir ataque atraves da unidade selecionada, cada personagem tem sua propria configuração de ataque.
@@ -19,12 +19,5 @@ public interface AldeaoSet {
      */
     public void Atacar(boolean ataque);
 
-    /**
-     * Este metodo diz qual é o tipo de movimento do Personagem. Exemplo: Para Frente ( F ) e Para o Norte ( N ).
-     * @param direcao Recebe uma String com as direcoes do movimento no formato:
-     * "N S L O F"
-     * Letras maiusculas separadas por espaco.
-     */
-    public void SetTipoMovimento(String direcao);
-
+   
 }
