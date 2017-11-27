@@ -6,18 +6,35 @@ import java.util.*;
  */
 public interface AldeaoSet {
 
+    
     /**
-     * Metodo para movimentar unidades ou seja, ele seta o novo X e Y (posicao) da unidade.
-     * @param SetX Posicao X
-     * @param SetY Posicao Y
+     * Esse metodo serve para retornar o level do Personagem.
+     * Sendo eles: 
+     * Aldeao (1)
+     * Arqueiro (2)
+     * Guerreiro (3)
+     * Cavaleiro (4)
+     * Navio (5)
      */
-    public void Movimenta(String direcao, Aldeao[] Vetor, String[][] Mapa);
+    public int getLevel();
+    
+    /**
+     * Esse metodo serve para retornar o alcance de ataque do Personagem.
+     * Sendo eles: 
+     * Aldeao (1)
+     * Arqueiro (5)
+     * Guerreiro (3)
+     * Cavaleiro (5)
+     * Navio (100)
+     */    
+    public int getAtaque();
+    
 
     /**
-     * Esse metodo serve para desferir ataque atraves da unidade selecionada, cada personagem tem sua propria configuração de ataque.
-     * @param ataque Se for tue então o ataque é desferido, caso contrario não.
+     * @param PosX posicao X do personagem
+     * @param PosY posicao Y do personagem
      */
-    public void Atacar(boolean ataque);
+	public void SetPosXY(int PosX, int PosY);
 
    
 }

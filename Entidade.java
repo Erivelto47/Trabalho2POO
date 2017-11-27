@@ -42,7 +42,6 @@ public abstract class Entidade {
      * @return
      */
     public int GetPosX() {
-        // TODO implement here
         return this.posX;
     }
 
@@ -51,7 +50,6 @@ public abstract class Entidade {
      * @return
      */
     public int GetPosY() {
-        // TODO implement here
         return this.posY;
     }
 
@@ -62,7 +60,6 @@ public abstract class Entidade {
        
         return this.frente;
     }
-
     /**
      * Seta para onde esta a frente do personagem.
      * @param frente Recebe um valor String : 
@@ -71,8 +68,12 @@ public abstract class Entidade {
      * L (leste)
      * O (oeste)
      */
-    public abstract void SetFrente(String frente);
+    public void setFrente(String frente) {
+    	this.frente = frente;
+    }
 
+   
+   
     /**
      * @param PosX 
      * @param PosY

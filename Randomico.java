@@ -5,7 +5,7 @@ import java.util.Random;
  */
 public class Randomico {
 
-static int ID = 0;
+static int ID = 10;
     
     private Random x = new Random();
     

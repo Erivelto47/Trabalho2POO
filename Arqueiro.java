@@ -9,14 +9,15 @@ public class Arqueiro extends Aldeao implements AldeaoSet {
     /**
      * 
      */
-    private static double movimento = 2;
+    private static int movimento = 2;
 
     /**
      * 
      */
-    private final double ataqueArq = 5;
+    private final int ataqueArq = 5;
 
-    
+    private String tipo = "Q";
+	
     /**
      * Default constructor
      */
@@ -24,32 +25,36 @@ public class Arqueiro extends Aldeao implements AldeaoSet {
     	super(id);
     }
 
-
     /**
-     * Metodo para movimentar unidades ou seja, ele seta o novo X e Y (posicao) da unidade.
-     * @param SetX Posicao X
-     * @param SetY Posicao Y
+     * @param PosX 
+     * @param PosY
      */
-    public void Movimenta(String direcao) {
-        // TODO implement here
+    @Override
+	public void SetPosXY(int PosX, int PosY) {
+		super.SetPosXY(PosX, PosY);
+	}
+
+    public int GetCasasMovimento() {
+    	return this.movimento;
+    }
+    
+    @Override
+    public String getTipoUnidade() {
+    	return this.tipo;
     }
 
-    /**
-     * Esse metodo serve para desferir ataque atraves da unidade selecionada, cada personagem tem sua propria configuração de ataque.
-     * @param ataque Se for tue então o ataque é desferido, caso contrario não.
-     */
-    public void Atacar(boolean ataque) {
-        // TODO implement here
-    }
 
-    /**
-     * Este metodo diz qual é o tipo de movimento do Personagem. Exemplo: Para Frente ( F ) e Para o Norte ( N ).
-     * @param direcao Recebe uma String com as direcoes do movimento no formato:
-     * "N S L O F"
-     * Letras maiusculas separadas por espaco.
-     */
-    public void SetTipoMovimento(String direcao) {
-        // TODO implement here
-    }
+	@Override
+	public int getLevel() {
+		return 2;
+	}
+
+	@Override
+	public int getAtaque() {
+		return this.ataqueArq;
+	}
+    
+
+	
 
 }

@@ -4,20 +4,11 @@ import java.util.*;
 /**
  * 
  */
-public class Navio extends Aldeao {
+public class Navio extends Aldeao implements AldeaoSet{
 	
 	private String frente;
 	
 	private String tipo = "N";
-	
-
-
-    /**
-     * Default constructor
-     */
-    public Navio() {
-    }
-
     /**
      * 
      */
@@ -28,7 +19,12 @@ public class Navio extends Aldeao {
      */
     private final int ataqueNv = 100;
 
-
+    /**
+     * Default constructor
+     */
+    public Navio(int nome) {
+    	super(nome);
+    }
 
     /**
      * Seta para onde esta a frente do personagem.
@@ -41,34 +37,36 @@ public class Navio extends Aldeao {
     public void SetFrente(String frente) {
     	
     }
-
+   
     /**
      * @param PosX 
      * @param PosY
      */
     @Override
 	public void SetPosXY(int PosX, int PosY) {
-		// TODO Auto-generated method stub
-		
+		super.SetPosXY(PosX, PosY);
 	}
+    
     
     public int GetCasasMovimento() {
     	return this.movimento;
     }
-    public String tipoUnidade() {
+    @Override
+    public String getTipoUnidade() {
     	return this.tipo;
     }
-    
-    /**
-     * Este metodo diz qual é o tipo de movimento do Personagem. Exemplo: Para Frente ( F ) e Para o Norte ( N ).
-     * @param direcao Recebe uma String com as direcoes do movimento no formato:
-     * "N S L O F"
-     * Letras maiusculas separadas por espaco.
-     */
-    public void SetTipoMovimento(String direcao) {
-        // TODO implement here
-    }
 
+	@Override
+	public int getLevel() {
+		return 5;
+	}
+
+	@Override
+	public int getAtaque() {
+		return this.ataqueNv;
+	}
+    
+   
 	
 
 	

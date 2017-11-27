@@ -1,267 +1,371 @@
-package main;
 public class Auxiliar {
 	private String direcao;
-	
-	private Aldeao selecionado;//unidade a ser movida
-	
-	private Aldeao[] unidades;
-	
-	private String[][] Mapa;
-	
-	private int id;// id da unidade
-	
 
-                
-	
-	
-	public void Movimenta(int id, String direcao, Aldeao[] Vetor, String[][] Mapa) 
-                 {
+	private Aldeao selecionado;// unidade a ser movida
+
+	private Aldeao[] unidades;
+
+	private String[][] Mapa;
+
+	private int id;// id da unidade
+
+	public void Movimenta(int id, String direcao, Aldeao[] Vetor, String[][] Mapa){
 		this.unidades = Vetor;
 		this.Mapa = Mapa;
 		this.id = id; 
-		this.selecionado = this.ExisteUnidade(Vetor);
-                                   
-                                    
+		this.direcao = direcao;
+		this.selecionado = this.ExisteUnidade();
+		                    
 		
 		if(this.selecionado == null) {
-                                             System.out.println("Unidade não Existe.");	
+			System.out.println("Unidade n�o Existe.");	
 		}
-		else {		
-		
-                                             if(direcao == "N") {
-                                                      if(this.selecionado.GetPosX() == 0){
-                                                               System.out.println("Limite Norte da Arena - Movimento Inválido.");	
-                                                      }
-                                                      else 
-                                                      {
-                                                               //verificaçao para ver se o movimento NÃO esta nos limites da arena, se n estiver setar para a posicao limite da arena na direcao (norte nesse caso)
-                                                          
-                                                               if(this.selecionado.GetPosX() - (acessar o valor de movimento da unidade) < 0)           // Ex: do navio é 5, do aldeao 1...
-                                                               {
-                                                                        //se entrou quer dizer que o movimento e maior do que a arena
-                                                                        
-                                                                        if(verificar se existe alguem na coluna y / linha zero)     // X[0] Y[Valor da Coluna] // 
-                                                                        {
-                                                                                  //ja que existe comparar qual dos dois é mais forte
-                                                                                 if(se o da posicao que quero mover ser o mais forte, )
-                                                                                 {
-                                                                                          //excluir meu personagem atual
-                                                                                          System.out.println("Alguém mais forte na Posição  - Personagem Excluído.");
-                                                                                 }
-                                                                                 else
-                                                                                 {
-                                                                                          //nao fazer nada
-                                                                                          System.out.println("Outro Personagem Igual ou mais Fraco na Posição - Movimento Inválido.");
-                                                                                 }
-                                                                        }
-                                                                        
-                                                               }
-                                                               
-                                                               //se nao entrar no primeiro if quer dizer que o movimento vai estar dentro dos limites e entrara no else
-                                                               else
-                                                               {
-                                                                        if(verificar se existe alguem na posicao  Ex: Pos[GetPosX() - (acessar o valor de movimento da unidade) ][Y] )
-                                                                        {
-                                                                                   //ja que existe comparar qual dos dois é mais forte
-                                                                                 if(se o da posicao que quero mover ser o mais forte, )
-                                                                                 {
-                                                                                          //excluir meu personagem atual
-                                                                                          System.out.println("Alguém mais forte na Posição  - Personagem Excluído.");
-                                                                                 }
-                                                                                 else
-                                                                                 {
-                                                                                          //nao fazer nada
-                                                                                          System.out.println("Outro Personagem Igual ou mais Fraco na Posição - Movimento Inválido.");
-                                                                                 }
-                                                                        }
-                                                                        else    // nao existe ninguem na posicao
-                                                                        {
-                                                                                 //setar meu personagem para a nova posicao XY
-                                                                                 //gravar null na posicao antiga
-                                                                        }
-                                                               }
-                                                      }
-                                                }
-                                             
-                                             
-                                             /*
-                                             PRA SUL LESTE E OESTE VAI SER QUASE A MSM COISA, SO MUDA A POSICAO E DIRECAO Q VAMOS COMPARAR
-                                             
-                                              DA PRA OTIMIZAR O CODIGO FAZENDO UM METODO QUE FAZ AS COMPARACOES QUANDO JA EXISTE ALGUEM NA POSICAO:
-              
-                                             if(se o da posicao que quero mover ser o mais forte, )
-                                                                                 {
-                                                                                          //excluir meu personagem atual
-                                                                                          System.out.println("Alguém mais forte na Posição  - Personagem Excluído.");
-                                                                                 }
-                                                                                 else
-                                                                                 {
-                                                                                          //nao fazer nada
-                                                                                          System.out.println("Outro Personagem Igual ou mais Fraco na Posição - Movimento Inválido.");
-                                                                                 }
-                                             */
-                                    }
-                 }
-	
-	public Aldeao[] getUnidade() {
-		return this.unidades;
-	}
-	
-	public String[][] getMapa(){
-		return this.Mapa;
-	}
-	
-	private void ExcluirUnidade(int idExclui) {
-		int i;
-		for(i = 0; i < this.unidades.length; i++) {
-			if(this.unidades[i].getId() == idExclui) {
-				this.Mapa[unidades[i].GetPosX()][unidades[i].GetPosY()] = "-";
-				this.unidades[i] = null;
+		else {
+			if((this.direcao.equals("N") && this.selecionado.GetPosX() == 0) || (this.direcao.equals("S") && this.selecionado.GetPosX() == 9)){
+					System.out.println("Limite da Arena - Movimento Inv�lido.");
+			}
+			else if((this.direcao.equals("O") && this.selecionado.GetPosY() == 0) || (this.direcao.equals("L") && this.selecionado.GetPosY() == 9)) {
+				System.out.println("Limite da Arena - Movimento Inv�lido.");
+			}
+			else {
+				this.VerificaMapaPos();
 			}
 		}
 	}
-	//terminar de arrumar o tipo do personagem.
-	private void SetUnidade(Aldeao Setar) {
-		if(Setar != null) {
-			this.Mapa[Setar.GetPosX()][Setar.GetPosY()] = "" + Setar.getId() + Setar.GetFrente();
-		}
+		
+	public Aldeao[] getUnidade() {
+		return this.unidades;
+	}
+
+	public String[][] getMapa() {
+		return this.Mapa;
 	}
 	
-	
-                    /**
-                 * Retorna a Unidade se Existir
-                 */
-                  private Aldeao ExisteUnidade(Aldeao[] unidades) {
-                            int i;
-                            for(i = 0; i < unidades.length; i++) {
-    		if(unidades[i].getId() == this.id) {
-    			return unidades[i];
-    		}
-                            }
-                           return null;
-                   }
-                  
-                
-                  
-         
-	public void Atacar(int id, String direcao, Aldeao[] Vetor, String[][] Mapa) 
-                 {
-                 
-                     
-                                    //ESBOCO METODO ATAQUE
-                     
-                                    if(this.selecionado == null) {
-                                             System.out.println("Unidade não Existe.");	
+	public void Atacar(int id, Aldeao[] Vetor, String[][] Mapa) {
+		this.id = id;
+		this.Mapa = Mapa;
+		this.unidades = Vetor;
+		this.selecionado = this.ExisteUnidade();
+		this.direcao = this.selecionado.GetFrente();
+		
+		if(this.selecionado != null) {
+			if(this.selecionado.getTipoUnidade().equals("A")){
+				this.direcao = this.selecionado.GetFrente();
+				this.Ataque();//funcao que percorre a matriz e realiza as operacoes
+			}
+			
+			/*O arqueiro ataca a sua frente com alcance de 5 posicoes e pode abater 
+			 * apenas aldeoes e outros arqueiros. 
+			 * Caso outros personagens mais fortes estejam na direcao do ataque, os
+			 * mesmos nao serao abatidos*/
+			else if(this.selecionado.getTipoUnidade().equals("Q")) {
+				this.Ataque();
+			}
+			
+			/*guerreiro ataca em duas direcoes, a frente e a direita*/
+			else if(this.selecionado.getTipoUnidade().equals("G")) {
+				if(this.direcao.equals("N")){
+					this.Ataque();
+					this.direcao = "L";
+					this.Ataque();
+				}
+				else if(this.direcao.equals("S")) {
+					this.Ataque();
+					this.direcao = "O";
+					this.Ataque();
+				}
+				else if(this.direcao.equals("L")) {
+					this.Ataque();
+					this.direcao = "S";
+					this.Ataque();
+				}
+				else if(this.direcao.equals("O")) {
+					this.Ataque();
+					this.direcao = "N";
+					this.Ataque();
+				}
+			}
+			
+			/*O cavaleiro ataca em tres direcoes, a frente, a direita e  a esquerda*/
+			else if(this.selecionado.getTipoUnidade().equals("C")) {
+				if(this.direcao.equals("N")){
+					this.Ataque();
+					this.direcao = "L";
+					this.Ataque();
+					this.direcao = "O";
+					this.Ataque();
+				}
+				else if(this.direcao.equals("S")) {
+					this.Ataque();
+					this.direcao = "O";
+					this.Ataque();
+					this.direcao = "L";
+					this.Ataque();
+				}
+				else if(this.direcao.equals("L")) {
+					this.Ataque();
+					this.direcao = "S";
+					this.Ataque();
+					this.direcao = "N";
+					this.Ataque();
+				}
+				else if(this.direcao.equals("O")) {
+					this.Ataque();
+					this.direcao = "N";
+					this.Ataque();
+					this.direcao = "S";
+					this.Ataque();
+				}
+			}
+			/*O navio ataca em quatro dire�c�oes, norte, sul, leste e oeste*/
+			else if(this.selecionado.getTipoUnidade().equals("N")) {
+				this.direcao = "N";
+				this.Ataque();
+				this.direcao = "S";
+				this.Ataque();
+				this.direcao = "O";
+				this.Ataque();
+				this.direcao = "L";
+				this.Ataque();
+			}
+			
+			
 		}
-		else
-                                    {
-                                        
-                                        //ataca apenas pra frente - alcance de 1 posicao - so mata outros aldeoes
-                                         if(aldeao)
-                                         {
-                                             // faz um GetFrente pra receber a direcao da frente 
-                                             //as verificacoes de (PosX-1 > 0 ou PosY+1<9)  sao para garantir que so vai realizar operacao se o aldeao tiver 1 posicao distante do limite da arena, 
-                                             //pra evitar de se estiver no limte da arena vai tentar atacar uma posicao lixo de memoria
-                                             
-                                             if(frente == "N")
-                                             {
-                                                    if(verifica se PosX-1 é maior que zero)
-                                                    {
-                                                            if(verificar se existe alguem na posicao X-1){
-                                                                       //se existir e for mais forte
-                                                                       System.out.println("O Ataque Falhou.");
-                                                            }
-                                                            else{
-                                                                       //excluir o outro aldeao da posicao X-1
-                                                                       System.out.println("Ataque Com Sucesso!");
-                                                            }
-                                                    }
-                                               
-                                                
-                                             }
-                                             else if(frente == "S")
-                                             {
-                                                 //verifica se PosX+1 é menor que 9
-                                             }
-                                             else if(frente == "L")
-                                             {
-                                                 //verifica se PosY+1 é menor que 9
-                                             }
-                                             else if(frente == "O"")"
-                                             {
-                                                 //verifica se PosY-1 é maior que 0
-                                             }
-                                             
-                                         }
-                                         
-                                         //ataca apenas pra frente - alcance de 5 posicoes - mata aldeoes e outros arqueiros 
-                                         if else(arqueiro)
-                                         {
-                                              if(frente == "N")
-                                             {
-                                                    // a ideia é fazer um while 
-                                                    // a variavel i é para controle de ele nao fazer mais operacoes do que o alcance do arqueiro
-                                                    int i=0;
-                                                    int k  = GetPosX-1;    //para se por ex: o arqueiro ta na posicao X=3 a estrutura de repeticao tem q comparar apenas 4 vezes, vai comparar até o num chegar a zero
-                                                    
-                                                    while(i < 5 || k >-1)
-                                                    {
-                                                            if(verificar se existe alguem na posicao X[k]Y[Coluna d Arqueiro])
-                                                            {
-                                                                       //se existir e for mais forte
-                                                                       System.out.println("O Ataque Falhou.");
-                                                            }
-                                                            else{
-                                                                       //excluir o outro aldeao da posicao X-1
-                                                                       System.out.println("Ataque Com Sucesso!");
-                                                            }
-                                                            k--;
-                                                            i++;
-                                                    }
-                                               
-                                                
-                                             }
-                                             else if(frente == "S")
-                                             {
-                                                        //  while(i < 5 || k <10)
-                                                    
-                                             }
-                                             else if(frente == "L")
-                                             {
-                                                         //  while(i < 5 || k <10)
-                                             }
-                                             else if(frente == "O")
-                                             {
-                                                         //  while(i < 5 || k >-1)
-                                             }
-                                         }
-                                         
-                                         //ataca a frente e a direita - alcance de 3 posicoes - mata aldeoes, arqueiros e guerreiros
-                                         if else(guerreiro)
-                                         {   
-                                             //mesma ideia do while, mas nessa vamos ter que acrescentar as comparacoes de ataque pra direita/esquerda dependendo de pra que lado ta a frente do personagem
-                                         }
-                                         
-                                         //ataca a frente, direita e esquerda - alcance de 5 posicoes - mata todos menos navio
-                                         if else(cavaleiro)
-                                         {
-                                              //mesma ideia do while, mas nessa vamos ter que acrescentar as comparacoes de ataque pra direita/esquerda dependendo de pra que lado ta a frente do personagem
-                                         }
-                                         
-                                         //ataca em todas as direcoes - alcance maximo ate o limite da arena - mata ate a sombra da galera
-                                         if else(navio)
-                                         {
-                                             //armazenar em dois inteiros a posicao a linha e coluna que ele está
-                                             int x = getPosX;
-                                             int y = getPosY;
-                                             
-                                             //fazer um for que percorre o vetor de personagens e exclui todos os peronagens que estao ou na linha X ou na coluna Y, menos a posicao do navio
-                                             // se nao consegui, apaga inclusive o navio, e usa as variaveis que fiz acima onde esta salvo a posicao xy dele, entao grava novamente so ele na antiga posicao
-                                             
-                                         }
-                                            
-                                    }
-                                     
-                 }
+		else {
+			System.out.println("Esta Unidade n�o existe!");
+		}
+		
+    }
 
+	
+	
+	
+	
+	
+	/*-----------------------------------------------METODOS PRIVADOS------------------------------------------------------*/
+	
+	private boolean ExcluirUnidade(int idExclui) {
+		int i;
+		for (i = 0; i < this.unidades.length; i++) {
+			if(this.unidades[i] != null) {
+				if (this.unidades[i].getId() == idExclui) {
+					this.Mapa[unidades[i].GetPosX()][unidades[i].GetPosY()] = "-";
+					this.unidades[i] = null;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private void Ataque() {
+		Aldeao aux;
+		int k, w; //indices percorrer matriz
+		int alcance = this.selecionado.getAtaque();
+		int i = this.selecionado.GetPosX();
+		int j = this.selecionado.GetPosY();
+		String frente = this.direcao;
+		 
+		
+			if(frente.equals("N")) {
+				k = i;
+				//para o ataque o da matriz diminui
+				while((k >= (i-alcance)) && (k >= 0)) {
+					if(this.Mapa[k][j].equals("-") == false) {
+						this.id = getIDMapa(k, j);
+						aux = this.ExisteUnidade();
+						if(aux != null) {
+							if(aux.getId() != this.selecionado.getId()) {
+								if(aux.getLevel() <= this.selecionado.getLevel()) {
+									this.ExcluirUnidade(aux.getId());
+								}
+							}
+						}
+					}
+					k--;
+				}
+			}
+			else if(frente.equals("S")) {
+				k = i;
+				//para o ataque o da matriz diminui
+				while((k <= (i+alcance)) && (k <= 9)) {
+					if(this.Mapa[k][j].equals("-") == false) {
+						this.id = getIDMapa(k, j);
+						aux = this.ExisteUnidade();
+						if(aux != null) {
+							if(aux.getId() != this.selecionado.getId()) {
+								if(aux.getLevel() <= this.selecionado.getLevel()) {
+									this.ExcluirUnidade(aux.getId());
+								}
+							}
+						}
+					}
+					k++;
+				}
+			}
+			else if(frente.equals("L")) {
+				k = j;
+				//para o ataque o da matriz diminui
+				while((k <= (j+alcance)) && (k <= 9)) {
+					if(this.Mapa[i][k].equals("-") == false) {
+						this.id = getIDMapa(i, k);
+						aux = this.ExisteUnidade();
+						if(aux != null) {
+							if(aux.getId() != this.selecionado.getId()) {
+								if(aux.getLevel() <= this.selecionado.getLevel()) {
+									this.ExcluirUnidade(aux.getId());
+								}
+							}
+						}
+					}
+					k++;
+				}
+			}
+			if(frente.equals("O")) {
+				k = j;
+				//para o ataque o da matriz diminui
+				while((k >= (j-alcance)) && (k >= 0)) {
+					if(this.Mapa[i][k].equals("-") == false) {
+						this.id = getIDMapa(i, k);
+						aux = this.ExisteUnidade();
+						if(aux != null) {
+							if(aux.getId() != this.selecionado.getId()) {
+								if(aux.getLevel() <= this.selecionado.getLevel()) {
+									this.ExcluirUnidade(aux.getId());
+								}
+							}
+						}
+					}
+					k--;
+				}
+			}
+			
+	}
+	/**
+	 * Retorna o id do personagem na posicao solicitada
+	 * @param i linha da matriz
+	 * @param j coluna da matriz
+	 * @return int : Id do personagem 
+	 */
+	private int getIDMapa(int i, int j) {
+		if(this.Mapa[i][j].equals("-") == false) {
+			String id = this.Mapa[i][j].substring(0, 2);//pega o id do personagem
+			int idConvert = Integer.valueOf(id);//transforma em inteiro
+			return idConvert;
+		}
+		return -1;
+	}
+
+	/**
+	 * Retorna a Unidade se Existir
+	 */
+	private Aldeao ExisteUnidade() {
+		int i;
+		for (i = 0; i < this.unidades.length; i++) {
+			if (this.unidades[i] != null) {
+				if (this.unidades[i].getId() == this.id) {
+					return this.unidades[i];
+				}
+			}
+			
+		}
+		return null;
+	}
+	
+	/**
+	 * Verifica a Existencia de outras unidades na dire�ao do movimento
+	 */
+	private void VerificaMapaPos() {
+		int i = this.selecionado.GetCasasMovimento();//recebe como a unidade em questao anda pelo mapa
+		//coordenadas da unidade a mover
+		int y = this.selecionado.GetPosY();//posicao da coluna da matriz
+		int x = this.selecionado.GetPosX();//posicao da linha da matriz
+		
+
+		
+		/**************MOVIMENTO PARA CIMA *********************/
+		if(this.direcao.equals("N")) {
+			if((x-i) < 10 && (x-i) >= 0) {
+					this.SetMovPos((x-i), y);
+			}
+			else {
+				if(x-i< 0) {
+					this.SetMovPos(0, y);
+				}
+			}
+		}
+		
+		/**************MOVIMENTO PARA BAIXO *********************/
+		else if(this.direcao.equals("S") == true) {
+			System.out.println("Entro no ElseIF");
+			if((x+i) < 10 && (x+i) >= 0) {
+				this.SetMovPos(x+i, y);
+			}
+			else {
+				if(i+x > 10) {
+					this.SetMovPos(9, y);
+				}
+			}	
+		}
+		
+		/**************MOVIMENTO PARA LADO ESQUERDO *********************/
+		else if(this.direcao.equals("O")) {
+			if((y-i) < 10 && (y-i) >= 0) {
+				this.SetMovPos(x, y-i);
+			}
+			else {
+				if(x-i < 0) {
+					this.SetMovPos(x, 0);
+				}
+			}	
+		}
+		
+		/**************MOVIMENTO PARA LADO DIREITO *********************/
+		else if(this.direcao.equals("L")) {
+			if((y+i) < 10 && (y+i) >= 0) {
+				this.SetMovPos(x, (i+y));
+			}
+			else {
+				if(i+x > 10) {
+					this.SetMovPos(x, 9);
+				}
+			}	
+		}
+	}
+	/*
+	 * Esse metodo serve apenas para em certa posicao do mapa verificar se tem uma unidade
+	 * e fazer as operacoes convenientes
+	 */
+	private void SetMovPos(int i, int j) {
+		Aldeao aux; //caso haja uma unidade no mapa em determinada posicao essa variavel guarda
+		String vazio ="-";
+		
+		if(this.Mapa[i][j].equals(vazio) == false) {
+			this.id = this.getIDMapa(i, j);//transforma em inteiro
+			aux = this.ExisteUnidade();//verifica se a unidade existe
+			if(aux != null) {
+				//nivel do personagem que esta na posicao e maior de quem esta sendo movido
+				if(aux.getLevel() > this.selecionado.getLevel()) {
+					if(this.ExcluirUnidade(this.selecionado.getId())) {
+						System.out.println("Sua Unidade foi Excluida! H� uma unidade mais forte na posicao destino.");
+					}
+				}
+				else {
+					System.out.println("Movimento Inv�lido: A posicao esta ocupada por outra Unidade.");
+				}
+			}
+			}
+
+		else {
+			this.selecionado.setFrente(this.direcao);
+			//atualiza o Mapa
+			this.Mapa[i][j] = "" + this.selecionado.getId() + this.selecionado.getTipoUnidade() + this.selecionado.GetFrente();
+			this.Mapa[this.selecionado.GetPosX()][this.selecionado.GetPosY()] = "-";
+			//atualiza a posicao da unidade
+			this.selecionado.SetPosXY(i, j);
+		}
+	}
 }
+			
+		
+	

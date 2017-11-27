@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * 
  */
-public class Aldeao extends Entidade {
+public class Aldeao extends Entidade implements AldeaoSet {
 
 	private Auxiliar mov;
 	
@@ -17,11 +17,17 @@ public class Aldeao extends Entidade {
      * 
      */
     private String identificador;
+    
+    private String tipo = "A";
 
     /**
      * Armazena a direcao que o personagem está voltado, ou seja para onde foi o ultimo movimento
      * */
     private String frente;
+
+	private int ataqueAl = 1;
+
+	 private static int movimento = 1;
 
     /**
      * Default constructor
@@ -48,6 +54,14 @@ public class Aldeao extends Entidade {
     	return this.id;
     }
 
+    public int GetCasasMovimento() {
+    	return this.movimento;
+    }
+    public String getTipoUnidade() {
+    	return this.tipo;
+    }
+    
+   
 
     /**
      * Seta para onde esta a frente do personagem.
@@ -57,9 +71,9 @@ public class Aldeao extends Entidade {
      * L (leste)
      * O (oeste)
      */
-    @Override
-    public  void SetFrente(String frente) {
-    	this.frente = frente;
+   
+    public  void setFrente(String frente) {
+    	super.setFrente(frente);
     }
 
     /**
@@ -76,8 +90,22 @@ public class Aldeao extends Entidade {
      * @return
      */
     public String toString() {
-        return ""+ this.id;
+        return " Id: "+ this.id + " X: " + super.GetPosX() + " Y: "+ super.GetPosY();
     }
+
+
+	@Override
+	public int getLevel() {
+		return 1;
+	}
+
+
+	@Override
+	public int getAtaque() {
+		return this.ataqueAl;
+	}
+    
+    
 	
 
 }
