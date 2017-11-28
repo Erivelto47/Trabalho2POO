@@ -1,12 +1,21 @@
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * 
  */
-public abstract class Entidade {
+public abstract class Entidade implements Serializable {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
+
+	/**
      * Default constructor
      */
     public Entidade() {

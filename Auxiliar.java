@@ -8,6 +8,8 @@ public class Auxiliar {
 	private String[][] Mapa;
 
 	private int id;// id da unidade
+	
+	private Randomico rand = new Randomico(); //Esse objeto gera ids, posiçoes aleatórios
 
 	public void Movimenta(int id, String direcao, Aldeao[] Vetor, String[][] Mapa){
 		this.unidades = Vetor;
@@ -136,9 +138,57 @@ public class Auxiliar {
 		}
 		
     }
+	
+	public void RemoverPersonagem(int id, Aldeao[] Vetor, String[][] Mapa) {
+		Aldeao aux;
+		this.unidades = Vetor;
+		this.Mapa = Mapa;
+		this.id = id;
+		aux = this.ExisteUnidade();
+		if(aux!= null) {
+			this.ExcluirUnidade(aux.getId());
+			System.out.println("Unidade com id: " + this.id + ", foi removida com sucesso!");
+		}
+		else {
+			System.out.println("Não existe a unidade com esse ID.");
+		}
+	}
 
 	
-	
+	public void InserirPersonagem(String tipo, Aldeao[] unidades, String[][] Mapa, int x, int y) {
+		this.unidades = unidades;
+		this.Mapa = Mapa;
+		this.direcao = tipo;//reutilizacao do atributo só para guardar o tipo da unidade(Arqueiro, Aldeoa, ...)
+		int i;
+		this.selecionado = null;
+		
+		//caso não haja nenhuma unidade na posicao solicitada para inserçao
+		if(this.Mapa[x][y].equals("-")){
+			//verifica se o vetor unidades ainda tem espaco, sendo que o limite é 30
+			for(i = 0; i < this.unidades.length; i++) {
+				if(this.unidades[i] == null) {
+					this.selecionado = unidades[i]; //reaproveitamento do atributo, para guardar a posicao no vetor que esta vazia
+					if(this.SetaUnidade(x, y)) {
+						System.out.println("Unidade Criada com Sucesso, verifique no Mapa. Sua id é: " + this.selecionado.getId());
+						return;
+					}
+					else {
+						System.out.println("Erro ao criar unidade, por favor contate o administrador do sistema.");
+						return;
+					}
+				}
+			}
+			//caso saia do for e o selecionado seja nulo, significa que no vetor unidades não havia uma posicao nulla, ou seja vazia
+			if(this.selecionado == null) {
+				System.out.println("Infelizamente não há mais espacos para inserir novas unidades.");
+			}
+		}
+		//caso exista uma unidade na posicao
+		else {
+			System.out.println("Desculpe, nessas coordenadas ja existe uma unidade alocada. Por favor escolha outra posica.");
+		}
+		
+	}
 	
 	
 	
@@ -156,6 +206,42 @@ public class Auxiliar {
 			}
 		}
 		return false;
+	}
+	/*
+	 * Esse metodo aloca a nova unidade no mapa, e no vetor unidades
+	 */
+	private boolean SetaUnidade(int x, int y) {
+		this.id = this.rand.getID();//recebe um id
+		System.out.println("NOVO ID: " + this.id);
+		String frente = this.rand.getletraFrente();//recebe uma orientacao aleatoria
+		
+		//variavel direcao tem guardado o TIPO do personage, Aldeao(A), Arqueiro(Q), etc...
+		if(this.direcao.equals("A")) {
+			this.selecionado = new Aldeao(id);
+		}
+		else if(this.direcao.equals("Q")) {
+			this.selecionado = new Arqueiro(this.id);
+		}
+		else if(this.direcao.equals("G")) {
+			this.selecionado = new Guerreiro(this.id);
+		}
+		else if(this.direcao.equals("N")) {
+			this.selecionado = new Navio(this.id);
+		}
+		else {
+			this.selecionado = new Cavaleiro(this.id);
+		}
+		
+		if(this.selecionado != null) {
+			this.selecionado.setFrente(frente);
+			this.selecionado.SetPosXY(x, y);
+			this.Mapa[x][y] = "" + this.selecionado.getId() + this.selecionado.getTipoUnidade() + this.selecionado.GetFrente();
+			return true;
+		}
+		else {
+			return false;
+		}
+		
 	}
 	
 	private void Ataque() {
@@ -241,6 +327,8 @@ public class Auxiliar {
 			}
 			
 	}
+	
+	
 	/**
 	 * Retorna o id do personagem na posicao solicitada
 	 * @param i linha da matriz
@@ -286,7 +374,7 @@ public class Auxiliar {
 		/**************MOVIMENTO PARA CIMA *********************/
 		if(this.direcao.equals("N")) {
 			if((x-i) < 10 && (x-i) >= 0) {
-					this.SetMovPos((x-i), y);
+				this.SetMovPos((x-i), y);
 			}
 			else {
 				if(x-i< 0) {

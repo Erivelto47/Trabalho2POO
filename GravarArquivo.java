@@ -1,4 +1,3 @@
-package main;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,61 +5,105 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import java.lang.System;
+
 public class GravarArquivo {
 	private Aldeao[] unidades;
+	private String nomeArquivo = "padrao";
+	
 	/**
-	 *
-                   * @param Vetor
+	 * 
+	 * 
+	 * @param email 
+	 * vetor contendo todos os emails 
 	 */
-	public void gravarArquivo( Aldeao[] Vetor) {
-		this.Gravar();
+	public void gravarArquivo(Aldeao[] unidades) {
+		if (unidades != null) {
+			this.unidades = unidades;
+			this.Gravar();
+		}
+		else {
+			System.out.println("Erro! Vetor Vazio");
+		}
 
 	}
 
-	public void LerArquivo() {
+	public Aldeao[] LerArquivo() {
 		this.Ler();
+		return this.unidades;
 	}
-        
-                
-	// apagar esse metodo, s� para testes
+
+	
+
+	// apagar esse metodo, só para testes
 	private void IMPRIME() {
 
-		System.out.println("Vetor Aldeoes ");
-		for (Aldeao unidades2 : this.unidades) {
-			System.out.println(unidades2);
+		System.out.println("email do objeto gravar ");
+		for (Aldeao unidade : this.unidades) {
+			System.out.println(unidade);
 		}
+		System.out.println("Unidades do Objeto");
+
 	}
-        
+	
+	private void diminuivetor() {
+		int contador = 0;
+
+		// percore o vetor todo e dispensa as posisoes que sao nulas
+		for (Aldeao unidade : this.unidades) {
+			if (unidade != null) {
+				contador++;
+			}
+		}
+
+		// cria um novo vetor que tera o tamanho "real"
+		Aldeao[] novoVetor = new Aldeao[contador];
+		int i = 0;
+
+		// Percorre o "novoVetor" armazenando as posisoes "nao nulas" do vetor original
+		for (Aldeao newUnidade : this.unidades) {
+			if (newUnidade != null) {
+				novoVetor[i] = newUnidade;
+				i++;
+			}
+		}
+
+		// A variavel inicial recebe o vetor sem as posisoes nulas
+		this.unidades = novoVetor;
+		
+		this.IMPRIME();
+	}
 
 	private void Gravar() {
-
-		File arquivo = new File(nomeArquivo + ".dat");
-
+		
+		File arquivo = new File("padrao.dat");
+		
 		try {
 			FileOutputStream fout = new FileOutputStream(arquivo);
 			ObjectOutputStream objGravar = new ObjectOutputStream(fout);
-			objGravar.writeObject(this.unidades);
+			
+			objGravar.writeObject(unidades);
+			
 			objGravar.flush();
 			objGravar.close();
 			fout.close();
+			
 		} catch (Exception ex) {
 			System.err.println("Erro : " + ex.toString());
 		}
 	}
 
 	private void Ler() {
-		File arquivo = new File(nomeArquivo + ".dat");
+		File arquivo = new File("padrao.dat");
 		try {
 			FileInputStream fin = new FileInputStream(arquivo);
 			ObjectInputStream oin = new ObjectInputStream(fin);
 
-			Aldeao[] Salvo = (Aldeao[]) oin.readObject();
+			Aldeao[] agendaArq = (Aldeao[]) oin.readObject();
 			oin.close();
 			fin.close();
-			for (Aldeao unidade : Salvo) {
-				System.out.println(unidade);
-			}
-
+			this.unidades = agendaArq;
+			
 		} catch (Exception ex) {
 			System.err.println("erro:" + ex.toString());
 		}

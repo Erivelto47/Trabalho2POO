@@ -1,14 +1,19 @@
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * 
  */
-public class Aldeao extends Entidade implements AldeaoSet {
+public class Aldeao extends Entidade implements AldeaoSet, Serializable {
 
-	private Auxiliar mov;
 	
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Deve ser unico, e permitira a movimentacao da unidade e outras operacoes.
      */
     private int id;
@@ -20,11 +25,7 @@ public class Aldeao extends Entidade implements AldeaoSet {
     
     private String tipo = "A";
 
-    /**
-     * Armazena a direcao que o personagem está voltado, ou seja para onde foi o ultimo movimento
-     * */
-    private String frente;
-
+    
 	private int ataqueAl = 1;
 
 	 private static int movimento = 1;

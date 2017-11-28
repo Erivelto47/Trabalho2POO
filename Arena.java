@@ -10,6 +10,8 @@ public class Arena  {
 
     private Aldeao[] unidades;
     private String[][] mapa;
+    
+    private GravarArquivo RW = new GravarArquivo();
 
     String[] stringe = new String[3];
  
@@ -23,25 +25,17 @@ public class Arena  {
     public Arena() {
     	this.mapa = new String[10][10];
     	this.SetMapNull();
+    }
+    public void LoadJogo() {
+    	this.mapa = new String[10][10];
+    	this.SetMapNull();
+    }
+
+    public void NovoJogo() {
     	this.unidades = new Aldeao[30];
     	this.SetUnidadesStart();
     	this.SetaMapaUnidades();
-    	
     }
-
-
-    /**
-     * Seta individualmente quantas unidade de cada tipo tera no Mapa.
-     * @param aldeao Diz quantas unidades Aldeaos terá no mapa.
-     * @param arqueiro Quantidade de Arqueiros.
-     * @param cavaleiro Quantidade de cavaleiros.
-     * @param navio Quantidade de Navios.
-     * @param guerreiro Numero de Guerreiros.
-     */
-    public void SetUnidades(int aldeao, int arqueiro, int cavaleiro, int navio, int guerreiro) {
-        // TODO implement here
-    }
-
     /**
      * Printa o Mapa com todas as unidades em suas respectivas posicoes.
      */
@@ -142,28 +136,28 @@ public class Arena  {
     		System.out.println("Posicao invalida, insira um valor de 0 a 9.\n");
     	}
     	else if(tipo.equals("Q") || tipo.equals("C") || tipo.equals("A") || tipo.equals("G") || tipo.equals("N")) {
-    		
+    		auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
     	}
     	else if(tipo.equals("q") || tipo.equals("c") || tipo.equals("a") || tipo.equals("g") || tipo.equals("n")) {
     		if(tipo.equals("q")) {
     			tipo = "Q";
-    			
+    			auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
     		}
     		else if(tipo.equals("a")) {
     			tipo = "A";
-    			
+    			auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
     		}
     		else if(tipo.equals("g")) {
     			tipo = "G";
-    			
+    			auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
     		}
     		else if(tipo.equals("n")) {
     			tipo = "N";
-    			
+    			auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
     		}
     		else if(tipo.equals("c")) {
     			tipo = "C";
-    			
+    			auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
     		}
     	}
     	else {
@@ -176,15 +170,21 @@ public class Arena  {
      * Deleta a Unidade Informada
      * @param id Recebe o Nome/Id da Unidade a ser removida
      */
-    public void DeleteUnidade(String id) {
-        // TODO implement here
+    public void DeleteUnidade(int id) {
+       this.auxiliar.RemoverPersonagem(id, this.unidades, this.mapa);
     }
 
     /**
      * Funcao para salvar o jogo em arquivo.
      */
     public void SalvarJogo() {
-        // TODO implement here
+        this.RW.gravarArquivo(this.unidades);
+    }
+    
+    public void LerJogo() {
+    	this.unidades = new Aldeao[30];
+    	this.unidades = this.RW.LerArquivo();
+    	this.SetaMapaUnidades();
     }
     
     /*-----------------------------------------------METODOS PRIVADOS------------------------------------------------------*/
@@ -198,10 +198,13 @@ public class Arena  {
     	String nome;
     	
     	for( i = 0; i < 10; i++) {
-    		l = this.unidades[i].GetPosX();
-    		c = this.unidades[i].GetPosY();
-    		nome = "" +  this.unidades[i].getId() + this.unidades[i].getTipoUnidade() + this.unidades[i].GetFrente();
-    		this.mapa[l][c] = nome;
+    		if(this.unidades[i] != null) {
+    			l = this.unidades[i].GetPosX();
+        		c = this.unidades[i].GetPosY();
+        		nome = "" +  this.unidades[i].getId() + this.unidades[i].getTipoUnidade() + this.unidades[i].GetFrente();
+        		this.mapa[l][c] = nome;
+    		}
+    		
     	}
        
     }
