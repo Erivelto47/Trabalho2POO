@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,70 +7,30 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class GravarArquivo {
-	private Email[] email;
-	private String nomeArquivo;
-	
+	private Aldeao[] unidades;
 	/**
-	 * 
-	 * @param nome 
-	 * Nome do arquivo a ser gravado
-	 * @param email 
-	 * vetor contendo todos os emails 
+	 *
+                   * @param Vetor
 	 */
-	public void gravarArquivo(String nome, Email[] email) {
-		this.nomeArquivo = nome;
-		if (email != null) {
-			this.email = email;
-			this.diminuivetor();
-			this.Gravar();
-		}
-		else {
-			System.out.println("Não há emails cadastrados!!");
-		}
+	public void gravarArquivo( Aldeao[] Vetor) {
+		this.Gravar();
 
 	}
 
-	public void LerArquivo(String nome) {
-		this.nomeArquivo = nome;
+	public void LerArquivo() {
 		this.Ler();
 	}
-
-	private void diminuivetor() {
-		int contador = 0;
-
-		// percore o vetor todo e dispensa as posiçoes que são nulas
-		for (Email email2 : this.email) {
-			if (email2 != null) {
-				contador++;
-			}
-		}
-
-		// cria um novo vetor que tera o tamanho "real"
-		Email[] novoVetor = new Email[contador];
-		int i = 0;
-
-		// Percorre o "novoVetor" armazenando as posiçoes "não nulas" do vetor original
-		for (Email email3 : this.email) {
-			if (email3 != null) {
-				novoVetor[i] = email3;
-				i++;
-			}
-		}
-
-		// A variavel inicial recebe o vetor sem as posiçoes nulas
-		this.email = novoVetor;
-	}
-
-	// apagar esse metodo, só para testes
+        
+                
+	// apagar esse metodo, sï¿½ para testes
 	private void IMPRIME() {
 
-		System.out.println("email do objeto gravar ");
-		for (Email email2 : this.email) {
-			System.out.println(email2);
+		System.out.println("Vetor Aldeoes ");
+		for (Aldeao unidades2 : this.unidades) {
+			System.out.println(unidades2);
 		}
-		System.out.println("Email do Objeto");
-
 	}
+        
 
 	private void Gravar() {
 
@@ -79,7 +39,7 @@ public class GravarArquivo {
 		try {
 			FileOutputStream fout = new FileOutputStream(arquivo);
 			ObjectOutputStream objGravar = new ObjectOutputStream(fout);
-			objGravar.writeObject(this.email);
+			objGravar.writeObject(this.unidades);
 			objGravar.flush();
 			objGravar.close();
 			fout.close();
@@ -94,11 +54,11 @@ public class GravarArquivo {
 			FileInputStream fin = new FileInputStream(arquivo);
 			ObjectInputStream oin = new ObjectInputStream(fin);
 
-			Email[] agendaArq = (Email[]) oin.readObject();
+			Aldeao[] Salvo = (Aldeao[]) oin.readObject();
 			oin.close();
 			fin.close();
-			for (Email email : agendaArq) {
-				System.out.println(email);
+			for (Aldeao unidade : Salvo) {
+				System.out.println(unidade);
 			}
 
 		} catch (Exception ex) {
