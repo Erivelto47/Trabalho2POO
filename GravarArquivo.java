@@ -9,13 +9,12 @@ import java.lang.System;
 
 public class GravarArquivo {
 	private Aldeao[] unidades;
-	private String nomeArquivo = "padrao";
 	
 	/**
 	 * 
 	 * 
-	 * @param email 
-	 * vetor contendo todos os emails 
+	 * @param unidades
+	 * vetor contendo todos as unidades
 	 */
 	public void gravarArquivo(Aldeao[] unidades) {
 		if (unidades != null) {

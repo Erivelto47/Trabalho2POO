@@ -105,6 +105,12 @@ public class Aldeao extends Entidade implements AldeaoSet, Serializable {
 	public int getAtaque() {
 		return this.ataqueAl;
 	}
+
+
+	@Override
+	public void SetPos() {
+				
+	}
     
     
 	

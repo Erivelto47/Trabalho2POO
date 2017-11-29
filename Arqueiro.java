@@ -6,14 +6,8 @@ import java.util.*;
  */
 public class Arqueiro extends Aldeao implements AldeaoSet {
 
-    /**
-     * 
-     */
     private static int movimento = 2;
 
-    /**
-     * 
-     */
     private final int ataqueArq = 5;
 
     private String tipo = "Q";

@@ -36,16 +36,6 @@ public abstract class Entidade implements Serializable {
      */
     private String frente;
 
-
-
-
-    /**
-     * Seta a posicao da entidade, chama a Classe Random para criar a posicao X e Y
-     */
-    public void Entidade() {
-        // TODO implement here
-    }
-
     /**
      * Retorna a posicao X do personagem
      * @return
@@ -91,5 +81,7 @@ public abstract class Entidade implements Serializable {
     	this.posX = PosX;
     	this.posY = PosY;
     }
+    
+    public abstract void SetPos();
 
 }
