@@ -48,9 +48,11 @@ public class Auxiliar {
 		this.Mapa = Mapa;
 		this.unidades = Vetor;
 		this.selecionado = this.ExisteUnidade();
-		this.direcao = this.selecionado.GetFrente();
+		
+		
 		
 		if(this.selecionado != null) {
+			this.direcao = this.selecionado.GetFrente();
 			if(this.selecionado.getTipoUnidade().equals("A")){
 				this.direcao = this.selecionado.GetFrente();
 				this.Ataque();//funcao que percorre a matriz e realiza as operacoes
@@ -169,6 +171,7 @@ public class Auxiliar {
 				if(this.unidades[i] == null) {
 					this.selecionado = unidades[i]; //reaproveitamento do atributo, para guardar a posicao no vetor que esta vazia
 					if(this.SetaUnidade(x, y)) {
+						this.unidades[i] = this.selecionado;
 						System.out.println("Unidade Criada com Sucesso, verifique no Mapa. Sua id é: " + this.selecionado.getId());
 						return;
 					}
@@ -385,7 +388,6 @@ public class Auxiliar {
 		
 		/**************MOVIMENTO PARA BAIXO *********************/
 		else if(this.direcao.equals("S") == true) {
-			System.out.println("Entro no ElseIF");
 			if((x+i) < 10 && (x+i) >= 0) {
 				this.SetMovPos(x+i, y);
 			}

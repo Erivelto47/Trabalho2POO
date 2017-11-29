@@ -137,32 +137,53 @@ public class Arena  {
     	}
     	else if(tipo.equals("Q") || tipo.equals("C") || tipo.equals("A") || tipo.equals("G") || tipo.equals("N")) {
     		auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
+    		this.unidades = auxiliar.getUnidade();
+        	this.mapa = auxiliar.getMapa();
+        	this.PrintMapa();
+        	
     	}
     	else if(tipo.equals("q") || tipo.equals("c") || tipo.equals("a") || tipo.equals("g") || tipo.equals("n")) {
+    		
     		if(tipo.equals("q")) {
     			tipo = "Q";
     			auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
+    			this.unidades = auxiliar.getUnidade();
+    	    	this.mapa = auxiliar.getMapa();
+    	    	this.PrintMapa();
     		}
     		else if(tipo.equals("a")) {
     			tipo = "A";
     			auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
+    			this.unidades = auxiliar.getUnidade();
+    	    	this.mapa = auxiliar.getMapa();
+    	    	this.PrintMapa();
     		}
     		else if(tipo.equals("g")) {
     			tipo = "G";
     			auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
+    			this.unidades = auxiliar.getUnidade();
+    	    	this.mapa = auxiliar.getMapa();
+    	    	this.PrintMapa();
     		}
     		else if(tipo.equals("n")) {
     			tipo = "N";
     			auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
+    			this.unidades = auxiliar.getUnidade();
+    	    	this.mapa = auxiliar.getMapa();
+    	    	this.PrintMapa();
     		}
     		else if(tipo.equals("c")) {
     			tipo = "C";
     			auxiliar.InserirPersonagem(tipo, this.unidades, this.mapa, PosX, PosY);
+    			this.unidades = auxiliar.getUnidade();
+    	    	this.mapa = auxiliar.getMapa();
+    	    	this.PrintMapa();
     		}
     	}
     	else {
     		System.out.println("Tipo de Unidade inválida!");
     	}
+    	
     	
     }
 
